@@ -18,11 +18,11 @@ class mesosdns(
   }
 
   file { '/usr/local/mesos-dns/config.json':
-    content => template('mesos-dns/config.json.erb'),
+    content => template('mesosdns/config.json.erb'),
   }
 
   file { '/usr/local/mesos-dns/mesos-dns.json':
-    content => template('mesos-dns/mesos-dns.json.erb'),
+    content => template('mesosdns/mesos-dns.json.erb'),
     require => [Exec['mesos-dns'], File['/usr/local/mesos-dns/config.json']],
     notify => Exec['mesos-dns submit'],
   }
