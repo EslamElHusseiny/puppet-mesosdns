@@ -1,0 +1,9 @@
+modules/
+.librarian/*
+.tmp/*
+*.log
+spec/fixtures/modules/*
+pkg/*
+.bundle
+Gemfile.lock
+Puppetfile.lock

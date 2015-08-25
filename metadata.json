@@ -1,0 +1,21 @@
+{
+  "name": "gcagrici-mesos-dns",
+  "version": "0.1.0",
+  "author": "Gokhan Cagrici",
+  "summary": "Mesos DNS Installation",
+  "license": "Apache-2.0",
+  "source": "http://github.com/gcagrici/mesos-dns",
+  "project_page": "http://github.com/gcagrici/mesos-dns",
+  "issues_url": "https://github.com/gcagrici/mesos-dns/issues",
+  "description": "Mesos DNS Installation",
+  "dependencies": [
+  ],
+  "operatingsystem_support": [
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.0.0 < 5.0.0"
+    }
+  ]
+}
