@@ -1,4 +1,4 @@
-class mesos-dns(
+class mesosdns(
   $zookeeper = '',
   $domain = '',
   $resolvers = '', 
