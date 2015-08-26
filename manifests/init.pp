@@ -24,12 +24,11 @@ class mesosdns(
   file { '/usr/local/mesos-dns/mesos-dns.json':
     content => template('mesosdns/mesos-dns.json.erb'),
     require => [Exec['mesos-dns'], File['/usr/local/mesos-dns/config.json']],
-    notify => Exec['mesos-dns submit'],
   }
 
   exec { 'mesos-dns submit':
-    command => "curl -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json",
-    refreshonly => true,
+    command => "curl -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json && touch /tmp/marathonok",
+    unless => 'ls /tmp/marathonok',
   }
 }
 
