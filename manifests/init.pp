@@ -9,12 +9,16 @@ class mesosdns(
   package { 'git-core':
     ensure => installed,
   }
-
+file { '/usr/local/mesos-dns':
+  ensure => directory,
+  mode => '755'
+}
 wget::fetch {'download_mesosdns':
   source => "https://github.com/mesosphere/mesos-dns/releases/download/v${version}/mesos-dns-v${version}-linux-amd64",
   destination => '/usr/local/mesos-dns/mesos-dns',
   timeout     => 10,
   verbose     => false,
+  require     => File['/usr/local/mesos-dns']
 }
 
 file {'/usr/local/mesos-dns/mesos-dns':
