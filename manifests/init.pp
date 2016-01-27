@@ -1,7 +1,7 @@
 class mesosdns(
   $zookeeper = '',
-  $domain = '',
-  $resolvers = '', 
+  $domain = 'mesos',
+  $resolvers = '8.8.8.8', 
   $marathonurl = '',
   $mesosdnshost = '',
   $version = '0.5.1'
