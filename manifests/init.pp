@@ -20,7 +20,7 @@ wget::fetch {'download_mesosdns':
 file {'/usr/local/mesos-dns/mesos-dns':
   mode => '0755',
   ensure => present,
-  requre => Wget::Fetch['download_mesosdns']
+  require => Wget::Fetch['download_mesosdns']
 }
 
   file { '/usr/local/mesos-dns/config.json':
