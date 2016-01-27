@@ -4,18 +4,24 @@ class mesosdns(
   $resolvers = '', 
   $marathonurl = '',
   $mesosdnshost = '',
+  $version = '0.5.1'
 ) {
   package { 'git-core':
     ensure => installed,
   }
 
-  exec { 'mesos-dns':
-    path    => ['/usr/bin', '/usr/sbin', '/bin', '/usr/local/go/bin', '/root/go/bin'],
-    environment => ["GOROOT=/usr/local/go","GOPATH=/root/go"],
-    command => 'wget https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz -P /tmp && tar zxf /tmp/go1.4.linux-amd64.tar.gz -C /usr/local/ && go get github.com/tools/godep && go get github.com/mesosphere/mesos-dns && cd $GOPATH/src/github.com/mesosphere/mesos-dns && make all && mkdir /usr/local/mesos-dns && mv mesos-dns /usr/local/mesos-dns',
-    require => Package['git-core'],
-    unless => 'ls /usr/local/mesos-dns/mesos-dns',
-  }
+wget::fetch {'download_mesosdns':
+  source => "https://github.com/mesosphere/mesos-dns/releases/download/v${version}/mesos-dns-v${version}-linux-amd64",
+  destination => '/usr/local/mesos-dns/mesos-dns',
+  timeout     => 10,
+  verbose     => false,
+}
+
+file {'/usr/local/mesos-dns/mesos-dns':
+  mode => '0755',
+  ensure => present,
+  requre => Wget::Fetch['download_mesosdns']
+}
 
   file { '/usr/local/mesos-dns/config.json':
     content => template('mesosdns/config.json.erb'),
@@ -23,7 +29,7 @@ class mesosdns(
 
   file { '/usr/local/mesos-dns/mesos-dns.json':
     content => template('mesosdns/mesos-dns.json.erb'),
-    require => [Exec['mesos-dns'], File['/usr/local/mesos-dns/config.json']],
+    require => [File['/usr/local/mesos-dns/mesos-dns'], File['/usr/local/mesos-dns/config.json']],
   }
 
   exec { 'mesos-dns submit':
