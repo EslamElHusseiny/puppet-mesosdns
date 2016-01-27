@@ -31,10 +31,10 @@ file {'/usr/local/mesos-dns/mesos-dns':
     content => template('mesosdns/mesos-dns.json.erb'),
     require => [File['/usr/local/mesos-dns/mesos-dns'], File['/usr/local/mesos-dns/config.json']],
   }
-
+ # TODO: Replace executing curl with proper marathon task resource
   exec { 'mesos-dns submit':
-    command => "curl -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json && touch /tmp/marathonok",
-    unless => 'ls /tmp/marathonok',
+    command => "/usr/bin/curl -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json && /usr/bin/touch /tmp/marathonok",
+    unless => '/bin/ls /tmp/marathonok',
   }
 }
 
