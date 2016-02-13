@@ -16,7 +16,7 @@ file { '/usr/local/mesos-dns':
 wget::fetch {'download_mesosdns':
   source => "https://github.com/mesosphere/mesos-dns/releases/download/v${version}/mesos-dns-v${version}-linux-amd64",
   destination => '/usr/local/mesos-dns/mesos-dns',
-  timeout     => 10,
+  timeout     => 60,
   verbose     => false,
   require     => File['/usr/local/mesos-dns']
 }
