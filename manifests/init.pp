@@ -37,7 +37,7 @@ file {'/usr/local/mesos-dns/mesos-dns':
   }
  # TODO: Replace executing curl with proper marathon task resource
   exec { 'mesos-dns submit':
-    command => "/usr/bin/curl -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json && /usr/bin/touch /tmp/marathonok",
+    command => "/usr/bin/curl -v --max-time 10 --retry 3 --retry-delay 5 --retry-max-time 32 -X POST -H 'Content-Type: application/json' http://${marathonurl}/v2/apps -d@/usr/local/mesos-dns/mesos-dns.json && /usr/bin/touch /tmp/marathonok",
     unless => '/bin/ls /tmp/marathonok',
   }
 }
