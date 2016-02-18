@@ -4,5 +4,6 @@
 "mem": 16,
 "id": "mesos-dns",
 "instances": 1,
+"ports": [53],
 "constraints": [["hostname", "CLUSTER", "<%= @mesosdnshost %>"]]
 }
