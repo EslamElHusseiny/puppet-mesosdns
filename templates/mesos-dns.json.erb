@@ -1,9 +1,0 @@
-{
-"cmd": "/usr/local/mesos-dns/mesos-dns -config=/usr/local/mesos-dns/config.json",
-"cpus": 0.5, 
-"mem": 16,
-"id": "mesos-dns",
-"instances": 1,
-"ports": [53],
-"constraints": [["hostname", "CLUSTER", "<%= @mesosdnshost %>"]]
-}
