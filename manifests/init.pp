@@ -4,9 +4,6 @@ class mesosdns(
   $resolvers = '8.8.8.8',
   $version = '0.5.1'
 ) {
-  package { 'git-core':
-    ensure => installed,
-  }
 file { '/usr/local/mesos-dns':
   ensure => directory,
   mode => '755'
