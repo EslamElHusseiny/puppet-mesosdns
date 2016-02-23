@@ -33,3 +33,4 @@ file {'/usr/local/mesos-dns/mesos-dns':
     content => template('mesosdns/mesos-dns.json.erb'),
     require => [File['/usr/local/mesos-dns/mesos-dns'], File['/usr/local/mesos-dns/config.json']],
   }
+}
